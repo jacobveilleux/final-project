@@ -5,6 +5,9 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 // IMPORT COMPONENTS
 import GlobalStyles from "./GlobalStyles";
+import Home from "./Home";
+import Profile from "./Profile";
+import Signup from "./Signup";
 
 const App = () => {
     return (
@@ -13,7 +16,13 @@ const App = () => {
             <Wrapper>
                 <Switch>
                     <Route exact path="/">
-                        Hello!
+                        <Home />
+                    </Route>
+                    <Route path="/profile">
+                        <Profile />
+                    </Route>
+                    <Route path="/signup">
+                        <Signup />
                     </Route>
                 </Switch>
             </Wrapper>
