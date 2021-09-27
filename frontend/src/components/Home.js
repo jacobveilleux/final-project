@@ -10,4 +10,7 @@ const Home = () => {
 
 export default Home;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+    padding: var(--padding-page);
+    font-size: 50px;
+`;

@@ -1,6 +1,14 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
+
+:root {
+    --color-1: #43484C; // Charcoal
+    --color-2: #DAE6Df; // Mint Cream
+    --font-body: "Open Sans", sans-serif;
+    --padding-page: 4vh 8vw;
+}
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -23,7 +31,8 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
+	font-family: "Open Sans", sans-serif;
+	color: #43484c;
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */

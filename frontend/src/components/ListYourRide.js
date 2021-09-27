@@ -4,12 +4,13 @@ import styled from "styled-components";
 
 // IMPORT COMPONENTS
 
-const Profile = () => {
-    return <Wrapper>Profile Page</Wrapper>;
+const ListYourRide = () => {
+    return <Wrapper>Become a host!</Wrapper>;
 };
 
-export default Profile;
+export default ListYourRide;
 
 const Wrapper = styled.div`
     padding: var(--padding-page);
+    font-size: 50px;
 `;
