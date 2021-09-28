@@ -24,7 +24,7 @@ const batchImport = async () => {
 
         // creating new collection "owners"
         await db.collection("owners").insertMany(owners);
-        await db.collections("riders").insertMany(riders);
+        await db.collection("riders").insertMany(riders);
     } catch (err) {
         console.log("failed!");
         console.log(err);
