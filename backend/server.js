@@ -3,7 +3,7 @@
 // import the needed node_modules.
 const express = require("express");
 const morgan = require("morgan");
-const { getOwners } = require("./handlers");
+const { getOwners, getRiders } = require("./handlers");
 
 express()
     // chain express methods for convenience
@@ -15,6 +15,7 @@ express()
     //ENDPOINTS
     // ---------------------------------
     .get("/owners", getOwners)
+    .get("/riders", getRiders)
     // ---------------------------------
 
     // this is our catch all endpoint.
