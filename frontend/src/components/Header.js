@@ -1,4 +1,4 @@
-// IMPORT DEPENDANCIES
+// IMPORT DEPENDENCIES
 import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
@@ -12,7 +12,7 @@ const Header = () => {
                 <Link>
                     <Logo>
                         <StyledLogo exact to="/">
-                            LOGO
+                            RIDE
                         </StyledLogo>
                     </Logo>
                     <StyledNavLink exact to="/list-your-ride">
@@ -37,7 +37,7 @@ export default Header;
 
 const Wrapper = styled.div`
     padding: var(--padding-page);
-    box-shadow: 0 1px 5px rgba(57, 63, 72, 0.3);
+    box-shadow: 0 2px 5px rgba(67, 72, 76, 0.3);
 `;
 
 const Link = styled.div`
@@ -47,6 +47,10 @@ const Link = styled.div`
 
 const Logo = styled.div`
     margin-right: 45vw;
+    font-weight: bold;
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 5px;
 `;
 
 const StyledLogo = styled(NavLink)`
@@ -57,4 +61,6 @@ const StyledLogo = styled(NavLink)`
 const StyledNavLink = styled(NavLink)`
     text-decoration: none;
     font-size: 16px;
+    display: flex;
+    align-items: center;
 `;

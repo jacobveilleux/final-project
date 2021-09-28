@@ -4,11 +4,11 @@ import styled from "styled-components";
 
 // IMPORT COMPONENTS
 
-const Signup = () => {
-    return <Wrapper>Sign up Page</Wrapper>;
+const ContactUs = () => {
+    return <Wrapper>Contact Us</Wrapper>;
 };
 
-export default Signup;
+export default ContactUs;
 
 const Wrapper = styled.div`
     padding: var(--padding-page);

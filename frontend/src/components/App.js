@@ -1,4 +1,4 @@
-// IMPORT DEPENDANCIES
+// IMPORT DEPENDENCIES
 import React from "react";
 import styled from "styled-components";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
@@ -6,10 +6,13 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 // IMPORT COMPONENTS
 import GlobalStyles from "./GlobalStyles";
 import Header from "./Header";
+import Footer from "./Footer";
 import Home from "./Home";
 import ListYourRide from "./ListYourRide";
 import Profile from "./Profile";
 import Signup from "./Signup";
+import About from "./About";
+import ContactUs from "./ContactUs";
 
 const App = () => {
     return (
@@ -21,7 +24,7 @@ const App = () => {
                     <Route exact path="/">
                         <Home />
                     </Route>
-                    <Route exact path="/list-your-ride">
+                    <Route path="/list-your-ride">
                         <ListYourRide />
                     </Route>
                     <Route path="/profile">
@@ -30,7 +33,14 @@ const App = () => {
                     <Route path="/signup">
                         <Signup />
                     </Route>
+                    <Route path="/about">
+                        <About />
+                    </Route>
+                    <Route path="/contact-us">
+                        <ContactUs />
+                    </Route>
                 </Switch>
+                <Footer />
             </Wrapper>
         </BrowserRouter>
     );

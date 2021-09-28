@@ -18,7 +18,7 @@ express()
     .get("/riders", getRiders)
     // ---------------------------------
 
-    // this is our catch all endpoint.
+    // this catch all endpoint.
     .get("*", (req, res) => {
         res.status(404).json({
             status: 404,
@@ -26,5 +26,5 @@ express()
         });
     })
 
-    // Node spins up our server and sets it to listen on port 8000.
+    // Node spins up server and sets it to listen on port 8000.
     .listen(8000, () => console.log(`Listening on port 8000`));
