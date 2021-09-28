@@ -5,7 +5,7 @@
     "license": "MIT",
     "scripts": {
         "start": "node server.js",
-        "dev:server": "nodemon server.js"
+        "dev:backend": "nodemon server.js"
     },
     "dependencies": {
         "dotenv": "^10.0.0",
