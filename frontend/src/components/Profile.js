@@ -12,4 +12,5 @@ export default Profile;
 
 const Wrapper = styled.div`
     padding: var(--padding-page);
+    font-size: 50px;
 `;
