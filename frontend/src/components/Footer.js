@@ -52,7 +52,7 @@ const Footer = () => {
                     </li>
                 </div>
                 <span style={{ textAlign: "center" }}>
-                    <FaRegCopyright /> RIDE, Inc.
+                    <FaRegCopyright /> RIDE
                 </span>
             </ul>
             <ul>
@@ -74,6 +74,15 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
     padding: var(--padding-page);
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    li {
+        margin-top: 10px;
+    }
 `;
 
 const Menu = styled(NavLink)`

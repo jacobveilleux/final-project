@@ -4,6 +4,7 @@ export const OwnersContext = createContext();
 
 const initialState = {
     isLoaded: false,
+    userInfo: {},
     RV: null,
 };
 
