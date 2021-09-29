@@ -10,7 +10,6 @@ import Footer from "./Footer";
 import Home from "./Home";
 import ListYourRide from "./ListYourRide";
 import Profile from "./Profile";
-import Signup from "./Signup";
 import About from "./About";
 import ContactUs from "./ContactUs";
 
@@ -29,9 +28,6 @@ const App = () => {
                     </Route>
                     <Route path="/profile">
                         <Profile />
-                    </Route>
-                    <Route path="/signup">
-                        <Signup />
                     </Route>
                     <Route path="/about">
                         <About />

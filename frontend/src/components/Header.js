@@ -4,30 +4,39 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 // IMPORT COMPONENTS
+import LoginButton from "./Login/LoginButton";
+import LogoutButton from "./Login/LogoutButton";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
+    const { isAuthenticated } = useAuth0();
     return (
         <>
             <Wrapper>
-                <Link>
+                <Nav1>
                     <Logo>
                         <StyledLogo exact to="/">
                             RIDE
                         </StyledLogo>
                     </Logo>
-                    <StyledNavLink exact to="/list-your-ride">
-                        Become a host
-                    </StyledNavLink>
-                    <StyledNavLink exact to="/profile">
-                        Profile
-                    </StyledNavLink>
-                    <StyledNavLink exact to="/login">
-                        Log in
-                    </StyledNavLink>
-                    <StyledNavLink exact to="/signup">
-                        Sign up
-                    </StyledNavLink>
-                </Link>
+                    <Nav2>
+                        <StyledNavLink exact to="/list-your-ride">
+                            Become a host
+                        </StyledNavLink>
+                        {isAuthenticated ? (
+                            <StyledNavLink exact to="/profile">
+                                Profile
+                            </StyledNavLink>
+                        ) : null}
+                        <StyledNavLink exact to="/login">
+                            {isAuthenticated ? (
+                                <LogoutButton />
+                            ) : (
+                                <LoginButton />
+                            )}
+                        </StyledNavLink>
+                    </Nav2>
+                </Nav1>
             </Wrapper>
         </>
     );
@@ -40,13 +49,16 @@ const Wrapper = styled.div`
     box-shadow: 0 2px 5px rgba(67, 72, 76, 0.3);
 `;
 
-const Link = styled.div`
+const Nav1 = styled.div`
     display: flex;
     justify-content: space-between;
 `;
 
+const Nav2 = styled.div`
+    display: flex;
+`;
+
 const Logo = styled.div`
-    margin-right: 45vw;
     font-weight: bold;
     border: 2px solid;
     border-radius: 5px;
@@ -63,4 +75,5 @@ const StyledNavLink = styled(NavLink)`
     font-size: 16px;
     display: flex;
     align-items: center;
+    margin-left: 60px;
 `;
