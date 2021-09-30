@@ -21,7 +21,7 @@ const Profile = () => {
                             <Image src={user.picture} />
                         </div>
                         <div>
-                            <Name>{user.name}</Name>
+                            <Name>{user.nickname}</Name>
                             <City>{user.email}</City>
                             <div>{JSON.stringify(user, null, 2)}</div>
                         </div>

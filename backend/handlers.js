@@ -8,10 +8,10 @@ const options = {
     useUnifiedTopology: true,
 };
 
-const dbname = "finalproject";
+const dbname = "RIDE";
 
-// GET all owners
-const getOwners = async (req, res) => {
+// GET all users
+const getUsers = async (req, res) => {
     const client = await new MongoClient(MONGO_URI, options);
 
     try {
@@ -22,44 +22,27 @@ const getOwners = async (req, res) => {
         const db = client.db(dbname);
 
         // look inside collection "owners"
-        const owners = await db.collection("owners").find().toArray();
+        const users = await db.collection("users").find().toArray();
 
         // status
-        owners
-            ? res.status(200).json({ status: 200, data: owners })
-            : res
-                  .status(404)
-                  .json({ status: 404, message: "owners not found" });
+        users
+            ? res.status(200).json({ status: 200, data: users })
+            : res.status(404).json({ status: 404, message: "users not found" });
     } catch (err) {
         console.log(err);
         res.status(500).json({ status: 500, message: "something smell funny" });
     }
 };
 
-// GET all riders
-const getRiders = async (req, res) => {
+// PUT update users
+const updateUsers = async (req, res) => {
     const client = await new MongoClient(MONGO_URI, options);
 
-    try {
-        // connect
-        await client.connect();
+    // connect
+    await client.connect();
 
-        // declare db
-        const db = client.db(dbname);
-
-        // look inside collection "owners"
-        const riders = await db.collection("riders").find().toArray();
-
-        // status
-        riders
-            ? res.status(200).json({ status: 200, data: riders })
-            : res
-                  .status(404)
-                  .json({ status: 404, message: "riders not found" });
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ status: 500, message: "something smell funny" });
-    }
+    // declare db
+    const db = client.db(dbname);
 };
 
-module.exports = { getOwners, getRiders };
+module.exports = { getUsers };
