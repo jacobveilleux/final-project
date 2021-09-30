@@ -1,25 +1,35 @@
 // IMPORT DEPENDENCIES
 import React from "react";
 import styled from "styled-components";
+import { useAuth0 } from "@auth0/auth0-react";
 
 // IMPORT COMPONENTS
 
 const Profile = () => {
+    const { user, isAuthenticated, isLoading } = useAuth0();
+
+    if (isLoading) {
+        return <div>Loading ...</div>;
+    }
+
     return (
-        <Wrapper>
-            <div>
-                <Container>
-                    <div>
-                        <Image src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZSUyMHBpY3R1cmV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
-                    </div>
-                    <div>
-                        <Name>Test Profile</Name>
-                        <City>Montréal</City>
-                    </div>
-                    <div></div>
-                </Container>
-            </div>
-        </Wrapper>
+        isAuthenticated && (
+            <Wrapper>
+                <div>
+                    <Container>
+                        <div>
+                            <Image src={user.picture} />
+                        </div>
+                        <div>
+                            <Name>{user.name}</Name>
+                            <City>{user.email}</City>
+                            <div>{JSON.stringify(user, null, 2)}</div>
+                        </div>
+                        <div></div>
+                    </Container>
+                </div>
+            </Wrapper>
+        )
     );
 };
 
