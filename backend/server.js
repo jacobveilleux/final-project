@@ -3,7 +3,7 @@
 // import the needed node_modules.
 const express = require("express");
 const morgan = require("morgan");
-const { getUsers } = require("./handlers");
+const { getUsers, getUserByEmail, updateUserByEmail } = require("./handlers");
 
 express()
     // chain express methods for convenience
@@ -15,6 +15,8 @@ express()
     //ENDPOINTS
     // ---------------------------------
     .get("/users", getUsers)
+    .get("/user/:email", getUserByEmail)
+    .put("/user/:email", updateUserByEmail)
     // ---------------------------------
 
     // this catch all endpoint.

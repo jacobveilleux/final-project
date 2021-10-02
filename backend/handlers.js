@@ -34,8 +34,9 @@ const getUsers = async (req, res) => {
     }
 };
 
-// PUT update users
-const updateUsers = async (req, res) => {
+// GET users by email
+const getUserByEmail = async (req, res) => {
+    const { email } = req.params;
     const client = await new MongoClient(MONGO_URI, options);
 
     // connect
@@ -43,6 +44,48 @@ const updateUsers = async (req, res) => {
 
     // declare db
     const db = client.db(dbname);
+
+    // look inside collection "owners"
+    const users = await db.collection("users").find().toArray();
+
+    const filterUsersByEmail = users.filter((user) => {
+        return user.email == email;
+    });
+
+    if (filterUsersByEmail) {
+        res.status(200).json({ status: 200, data: filterUsersByEmail[0] });
+    } else {
+        res.status(404).json({ status: 404, message: "company not found" });
+    }
 };
 
-module.exports = { getUsers };
+// PUT update user by email
+const updateUserByEmail = async (req, res) => {
+    const { email } = req.params;
+    const client = await new MongoClient(MONGO_URI, options);
+
+    // connect
+    await client.connect();
+
+    // declare db
+    const db = client.db(dbname);
+
+    const query = { email };
+    const newValues = {
+        $set: {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            city: req.body.city,
+        },
+    };
+
+    const users = await db.collection("users").updateOne(query, newValues);
+
+    users
+        ? res
+              .status(200)
+              .json({ status: 200, message: "user updated successfully" })
+        : res.status(404).json({ status: 200, message: "user not found" });
+};
+
+module.exports = { getUsers, getUserByEmail, updateUserByEmail };
