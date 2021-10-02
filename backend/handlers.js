@@ -82,6 +82,12 @@ const updateUserByEmail = async (req, res) => {
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 city: req.body.city,
+                host: req.body.host,
+                category: req.body.category,
+                address: req.body.address,
+                image: req.body.image,
+                description: req.body.description,
+                price: req.body.price,
             },
         };
 

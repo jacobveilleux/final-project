@@ -11,6 +11,12 @@ const ListYourRide = () => {
         firstName: "",
         lastName: "",
         city: "",
+        host: true,
+        category: "",
+        address: "",
+        image: "",
+        description: "",
+        price: "",
     });
 
     const handleInput = (ev) => {

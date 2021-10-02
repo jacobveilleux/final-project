@@ -20,9 +20,11 @@ const Header = () => {
                         </StyledLogo>
                     </Logo>
                     <Nav2>
-                        <StyledNavLink exact to="/list-your-ride">
-                            Become a host
-                        </StyledNavLink>
+                        {isAuthenticated ? (
+                            <StyledNavLink exact to="/list-your-ride">
+                                Become a host
+                            </StyledNavLink>
+                        ) : null}
                         {isAuthenticated ? (
                             <StyledNavLink exact to="/profile">
                                 Profile
