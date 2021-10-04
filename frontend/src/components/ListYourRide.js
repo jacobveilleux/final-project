@@ -20,6 +20,7 @@ const ListYourRide = () => {
         lastName: "",
         address: "",
         city: "",
+        state: "",
         category: "",
         imageSrc: "",
         description: "",
@@ -56,10 +57,11 @@ const ListYourRide = () => {
                 lastName: formData.lastName,
                 address: formData.address,
                 city: formData.city,
+                state: formData.state,
                 category: formData.category,
                 imageSrc: formData.imageSrc,
-                description: formData.description,
                 price: formData.price,
+                description: formData.description,
             }),
         }).then((res) => res.json());
     };
@@ -98,6 +100,14 @@ const ListYourRide = () => {
                         name="city"
                         placeholder="City"
                         value={formData.city}
+                        onChange={handleInput}
+                        required
+                    />
+                    <Input
+                        type="text"
+                        name="state"
+                        placeholder="State"
+                        value={formData.state}
                         onChange={handleInput}
                         required
                     />
