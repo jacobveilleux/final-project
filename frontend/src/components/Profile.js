@@ -23,7 +23,6 @@ const Profile = () => {
                         <div>
                             <Name>{user.nickname}</Name>
                             <City>{user.email}</City>
-                            <div>{JSON.stringify(user, null, 2)}</div>
                         </div>
                         <div></div>
                     </Container>

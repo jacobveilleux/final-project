@@ -16,7 +16,7 @@ express()
     // ---------------------------------
     .get("/users", getUsers)
     .get("/user/:email", getUserByEmail)
-    .put("/user/:email", updateUserByEmail)
+    .put("/user/update/:email", updateUserByEmail)
     // ---------------------------------
 
     // this catch all endpoint.

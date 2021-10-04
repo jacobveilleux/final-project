@@ -36,7 +36,7 @@ const App = () => {
                         <ContactUs />
                     </Route>
                 </Switch>
-                <Footer />
+                {/* <Footer /> */}
             </Wrapper>
         </BrowserRouter>
     );

@@ -85,7 +85,7 @@ const updateUserByEmail = async (req, res) => {
                 host: req.body.host,
                 category: req.body.category,
                 address: req.body.address,
-                image: req.body.image,
+                imageSrc: req.body.imageSrc,
                 description: req.body.description,
                 price: req.body.price,
             },

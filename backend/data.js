@@ -8,6 +8,7 @@ const owners = [
         surname: "Veilleux",
         email: "jv@mail.com",
         category: "moto",
+        city: "montreal",
     },
 ];
 
