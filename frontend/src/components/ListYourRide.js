@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useHistory } from "react-router-dom";
 
 // IMPORT COMPONENTS
 
@@ -26,6 +27,8 @@ const ListYourRide = () => {
         description: "",
         price: "",
     });
+
+    let history = useHistory();
 
     const handleInput = (ev) => {
         const name = ev.target.name;
@@ -63,7 +66,14 @@ const ListYourRide = () => {
                 price: formData.price,
                 description: formData.description,
             }),
-        }).then((res) => res.json());
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                const { status } = data;
+                if (status === 201) {
+                    history.push("/confirmed");
+                }
+            });
     };
 
     return (

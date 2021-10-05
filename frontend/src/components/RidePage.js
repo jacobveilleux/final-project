@@ -21,6 +21,14 @@ const RidePage = () => {
                 width={100}
                 alt="ride"
             ></Image>
+            <Name>
+                <div>{data.firstName}</div>
+                <div>{data.lastName}</div>
+            </Name>
+            <div>{data.category}</div>
+            <div>{data.price} $ per day</div>
+            <Description>{data.description}</Description>
+            <Button type="submit">Book</Button>
         </Wrapper>
     );
 };
@@ -37,3 +45,9 @@ const Image = styled.img`
     height: 250px;
     width: 250px;
 `;
+
+const Name = styled.div``;
+
+const Description = styled.div``;
+
+const Button = styled.button``;
