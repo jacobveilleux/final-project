@@ -34,6 +34,36 @@ const getUsers = async (req, res) => {
     }
 };
 
+// GET user by ID
+const getUserById = async (req, res) => {
+    const { _id } = req.params;
+    const client = await new MongoClient(MONGO_URI, options);
+
+    try {
+        // connect
+        await client.connect();
+
+        // declare db
+        const db = client.db(dbname);
+
+        // look inside collection "owners"
+        const users = await db.collection("users").find().toArray();
+
+        const filterUsersById = users.filter((user) => {
+            return user._id == _id;
+        });
+
+        if (filterUsersById) {
+            res.status(200).json({ status: 200, data: filterUsersById[0] });
+        } else {
+            res.status(404).json({ status: 404, message: "company not found" });
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ status: 500, message: "something went wrong" });
+    }
+};
+
 // GET user by email
 const getUserByEmail = async (req, res) => {
     const { email } = req.params;
@@ -105,4 +135,4 @@ const updateUserByEmail = async (req, res) => {
     }
 };
 
-module.exports = { getUsers, getUserByEmail, updateUserByEmail };
+module.exports = { getUsers, getUserById, getUserByEmail, updateUserByEmail };

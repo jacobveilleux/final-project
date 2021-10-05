@@ -121,9 +121,9 @@ const ListYourRide = () => {
                         required
                     >
                         <option value={null} label="Select a category"></option>
-                        <option value="moto">Moto</option>
-                        <option value="atv">ATV</option>
-                        <option value="snowmobile">Snowmobile</option>
+                        <option value="Moto">Moto</option>
+                        <option value="ATV">ATV</option>
+                        <option value="Snowmobile">Snowmobile</option>
                     </Select>
                     <Input
                         type="file"

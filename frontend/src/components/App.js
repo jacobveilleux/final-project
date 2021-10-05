@@ -8,6 +8,7 @@ import GlobalStyles from "./GlobalStyles";
 import Header from "./Header";
 import Footer from "./Footer";
 import Home from "./Home";
+import RidePage from "./RidePage";
 import ListYourRide from "./ListYourRide";
 import Profile from "./Profile";
 import About from "./About";
@@ -22,6 +23,9 @@ const App = () => {
                 <Switch>
                     <Route exact path="/">
                         <Home />
+                    </Route>
+                    <Route exact path="/ride/:_id">
+                        <RidePage />
                     </Route>
                     <Route path="/list-your-ride">
                         <ListYourRide />
