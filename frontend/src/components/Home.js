@@ -5,14 +5,15 @@ import { NavLink } from "react-router-dom";
 
 // IMPORT COMPONENTS
 import UserContext from "../context/UserContext";
-// import GoogleMapMarkers from "./GoogleMapMarkers";
+import SearchBar from "./SearchBar";
+import Map from "./GoogleMap/Map";
 
 const Home = () => {
     const { users } = useContext(UserContext);
 
     return (
         <Wrapper>
-            <div>{/* <GoogleMapMarkers /> */}</div>
+            <SearchBar />
             <Container>
                 {users.map((user, index) => {
                     if (user.host === true) {
@@ -33,8 +34,10 @@ const Home = () => {
                             </StyledLink>
                         );
                     }
+                    return user;
                 })}
             </Container>
+            <Map />
         </Wrapper>
     );
 };
