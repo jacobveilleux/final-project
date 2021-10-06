@@ -7,4 +7,7 @@ const PostConfirmation = () => {
 
 export default PostConfirmation;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+    padding: var(--padding-page);
+    font-size: 20px;
+`;

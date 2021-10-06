@@ -1,36 +1,36 @@
-import React, { useState } from "react";
+// IMPORT DEPENDENCIES
+import React, { useContext, useState } from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components";
 
-const Regristration = () => {
+// IMPORT COMPONENTS
+import AuthContext from "./context/AuthContext";
+
+const Login = () => {
+    let history = useHistory();
+    const { setCurrentUser } = useContext(AuthContext);
+
     const [formData, setFormData] = useState({
-        name: "",
-        surname: "",
-        city: "",
-        state: "",
         email: "",
         password: "",
     });
+    const [error, setError] = React.useState("");
 
     const handleInput = (ev) => {
         const name = ev.target.name;
         const value = ev.target.value;
-        console.log(name, value);
         setFormData({ ...formData, [name]: value });
     };
 
     const handleSubmit = (ev) => {
         ev.preventDefault();
-        fetch("/addrider", {
+        fetch("/login", {
             method: "POST",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                name: formData.name,
-                surname: formData.surname,
-                city: formData.city,
-                state: formData.state,
                 email: formData.email,
                 password: formData.password,
             }),
@@ -38,12 +38,18 @@ const Regristration = () => {
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
+                if (data.data) {
+                    setCurrentUser(data.data);
+                    history.push("/");
+                } else {
+                    setError(data.message);
+                }
             });
     };
 
     return (
         <Wrapper>
-            <div>Become a rider!</div>
+            <div>Login</div>
             <Form onSubmit={handleSubmit}>
                 <AllInputs>
                     <Input
@@ -62,47 +68,15 @@ const Regristration = () => {
                         onChange={handleInput}
                         required
                     />
-                    <Input
-                        type="text"
-                        name="name"
-                        placeholder="First Name"
-                        value={formData.name}
-                        onChange={handleInput}
-                        required
-                    />
-                    <Input
-                        type="text"
-                        name="surname"
-                        placeholder="Last Name"
-                        value={formData.surname}
-                        onChange={handleInput}
-                        required
-                    />
-                    <Input
-                        type="text"
-                        name="city"
-                        placeholder="City"
-                        value={formData.city}
-                        onChange={handleInput}
-                        required
-                    />
-                    <Input
-                        type="text"
-                        name="state"
-                        placeholder="State"
-                        value={formData.state}
-                        onChange={handleInput}
-                        required
-                    />
-
-                    <Button type="submit">CONFIRM</Button>
+                    <Button type="submit">LOGIN</Button>
+                    {error && <span>{error}</span>}
                 </AllInputs>
             </Form>
         </Wrapper>
     );
 };
 
-export default Regristration;
+export default Login;
 
 const Wrapper = styled.div`
     padding: var(--padding-page);

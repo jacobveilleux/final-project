@@ -1,9 +1,10 @@
 // IMPORT DEPENDENCIES
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
 // IMPORT COMPONENTS
+import AuthContext from "./context/AuthContext";
 
 const toBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -13,7 +14,9 @@ const toBase64 = (file) =>
         reader.onerror = (error) => reject(error);
     });
 
-const ListYourRide = () => {
+const HostRegistration = () => {
+    const { setCurrentUser } = useContext(AuthContext);
+
     const [formData, setFormData] = useState({
         name: "",
         surname: "",
@@ -48,7 +51,7 @@ const ListYourRide = () => {
 
     const handleSubmit = (ev) => {
         ev.preventDefault();
-        fetch("/addhost", {
+        fetch("/registerHost", {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -72,10 +75,7 @@ const ListYourRide = () => {
             .then((data) => {
                 const { status } = data;
                 if (status === 200) {
-                    window.localStorage.setItem(
-                        "formData",
-                        JSON.stringify(data.data)
-                    );
+                    setCurrentUser(data.data);
                     history.push("/confirmed");
                 }
             });
@@ -92,7 +92,6 @@ const ListYourRide = () => {
                         placeholder="Email"
                         value={formData.email}
                         onChange={handleInput}
-                        required
                     />
                     <Input
                         type="password"
@@ -100,7 +99,6 @@ const ListYourRide = () => {
                         placeholder="Password"
                         value={formData.password}
                         onChange={handleInput}
-                        required
                     />
                     <Input
                         type="text"
@@ -108,7 +106,6 @@ const ListYourRide = () => {
                         placeholder="First Name"
                         value={formData.name}
                         onChange={handleInput}
-                        required
                     />
                     <Input
                         type="text"
@@ -116,7 +113,6 @@ const ListYourRide = () => {
                         placeholder="Last Name"
                         value={formData.surname}
                         onChange={handleInput}
-                        required
                     />
                     <Input
                         type="text"
@@ -124,7 +120,6 @@ const ListYourRide = () => {
                         placeholder="Address"
                         value={formData.address}
                         onChange={handleInput}
-                        required
                     />
                     <Input
                         type="text"
@@ -132,7 +127,6 @@ const ListYourRide = () => {
                         placeholder="City"
                         value={formData.city}
                         onChange={handleInput}
-                        required
                     />
                     <Input
                         type="text"
@@ -140,7 +134,6 @@ const ListYourRide = () => {
                         placeholder="State"
                         value={formData.state}
                         onChange={handleInput}
-                        required
                     />
 
                     <Select
@@ -149,7 +142,6 @@ const ListYourRide = () => {
                         placeholder="Category"
                         value={formData.category}
                         onChange={handleInput}
-                        required
                     >
                         <option value={null} label="Select a category"></option>
                         <option value="Moto">Moto</option>
@@ -161,7 +153,6 @@ const ListYourRide = () => {
                         name="imageSrc"
                         placeholder="Image"
                         onChange={handleInput}
-                        required
                     />
                     <Input
                         type="text"
@@ -169,7 +160,6 @@ const ListYourRide = () => {
                         placeholder="Price"
                         value={formData.price}
                         onChange={handleInput}
-                        required
                     />
                     <Description
                         type="text"
@@ -177,7 +167,6 @@ const ListYourRide = () => {
                         placeholder="Description"
                         value={formData.description}
                         onChange={handleInput}
-                        required
                     />
                 </AllInputs>
                 <Button type="submit">CONFIRM</Button>
@@ -186,7 +175,7 @@ const ListYourRide = () => {
     );
 };
 
-export default ListYourRide;
+export default HostRegistration;
 
 const Wrapper = styled.div`
     padding: var(--padding-page);

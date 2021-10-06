@@ -1,11 +1,27 @@
 // IMPORT DEPENDENCIES
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 // IMPORT COMPONENTS
+import AuthContext from "./context/AuthContext";
 
 const Header = () => {
+    const { currentUser, setCurrentUser } = useContext(AuthContext);
+    const history = useHistory();
+
+    function logout() {
+        fetch("/logout", {
+            method: "POST",
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                setCurrentUser(null);
+                history.push(`login`);
+            });
+    }
+
     return (
         <>
             <Wrapper>
@@ -16,15 +32,28 @@ const Header = () => {
                         </StyledLogo>
                     </Logo>
                     <Nav2>
-                        <StyledNavLink exact to="/list-your-ride">
-                            Become a host
-                        </StyledNavLink>
-                        <StyledNavLink exact to="/registration">
-                            Become a rider
-                        </StyledNavLink>
-                        <StyledNavLink exact to="/login">
-                            Log In
-                        </StyledNavLink>
+                        {currentUser ? (
+                            <>
+                                <StyledNavLink to="/profile">
+                                    Profile
+                                </StyledNavLink>
+                                <StyledNavLink onClick={() => logout()} to="/">
+                                    Logout
+                                </StyledNavLink>
+                            </>
+                        ) : (
+                            <>
+                                <StyledNavLink exact to="/hostRegistration">
+                                    Become a host
+                                </StyledNavLink>
+                                <StyledNavLink exact to="/riderRegistration">
+                                    Become a rider
+                                </StyledNavLink>
+                                <StyledNavLink exact to="/login">
+                                    Log In
+                                </StyledNavLink>
+                            </>
+                        )}
                     </Nav2>
                 </Nav1>
             </Wrapper>

@@ -1,20 +1,27 @@
 // IMPORT DEPENDENCIES
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 
 // IMPORT COMPONENTS
+import AuthContext from "./context/AuthContext";
 
 const Profile = () => {
+    const { currentUser } = useContext(AuthContext);
+
     return (
         <Wrapper>
             <div>
                 <Container>
                     <div></div>
                     <div>
-                        <Name>Jacob</Name>
+                        <Name>{currentUser.name || "NO NAME"}</Name>
                         <City>Montreal</City>
                     </div>
-                    <div></div>
+
+                    <code>
+                        <div>CURRENT USER</div>
+                        <pre>{JSON.stringify(currentUser, null, 2)}</pre>
+                    </code>
                 </Container>
             </div>
         </Wrapper>

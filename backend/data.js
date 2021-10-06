@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 
-const host = [
+const users = [
     {
         _id: uuidv4(),
         name: "Tyrone",
@@ -17,6 +17,7 @@ const host = [
         description: "test",
         lat: "45.498340",
         lng: "-73.558890",
+        role: "HOST",
     },
     {
         _id: uuidv4(),
@@ -34,6 +35,7 @@ const host = [
         description: "Hola",
         lat: "45.488690",
         lng: "-73.568130",
+        role: "HOST",
     },
     {
         _id: uuidv4(),
@@ -51,6 +53,7 @@ const host = [
         description: "hey!",
         lat: "45.501820",
         lng: "-73.560160",
+        role: "HOST",
     },
     {
         _id: uuidv4(),
@@ -68,6 +71,7 @@ const host = [
         description: "salut",
         lat: "45.500570",
         lng: "-73.574790",
+        role: "HOST",
     },
     {
         _id: uuidv4(),
@@ -85,6 +89,7 @@ const host = [
         description: "bonjour",
         lat: "45.494240",
         lng: "-73.578480",
+        role: "HOST",
     },
     {
         _id: uuidv4(),
@@ -102,6 +107,7 @@ const host = [
         description: "Hi",
         lat: "45.509520",
         lng: "-73.550770",
+        role: "HOST",
     },
     {
         _id: uuidv4(),
@@ -119,17 +125,8 @@ const host = [
         description: "Hello",
         lat: "45.473130",
         lng: "-73.538390",
+        role: "HOST",
     },
 ];
 
-const riders = [
-    {
-        _id: uuidv4(),
-        name: "Rider",
-        surname: "One",
-        email: "riderone@mail.com",
-        password: "123",
-    },
-];
-
-module.exports = { host, riders };
+module.exports = { users };

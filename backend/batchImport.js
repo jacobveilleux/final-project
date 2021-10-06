@@ -1,5 +1,5 @@
 const { MongoClient } = require("mongodb");
-const { host, riders } = require("./data");
+const { users } = require("./data");
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
@@ -22,11 +22,8 @@ const batchImport = async () => {
         // declare db
         const db = client.db(dbname);
 
-        // creating new collection "owners"
-        await db.collection("host").insertMany(host);
-
-        // creating new collection "riders"
-        await db.collection("riders").insertMany(riders);
+        // creating new collection "users"
+        await db.collection("users").insertMany(users);
     } catch (err) {
         console.log("failed!");
         console.log(err);

@@ -1,39 +1,57 @@
 // IMPORT DEPENDENCIES
-import React, { useContext } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 // IMPORT COMPONENTS
-import UserContext from "./context/UserContext";
 import GoogleMapWithMarker from "./GoogleMap/GoogleMapWithMarker";
 
 // import SearchBar from "./SearchBar";
 
 const Home = () => {
-    const { users } = useContext(UserContext);
+    const [hosts, setHosts] = useState([]);
+    const [hostsLoaded, setHostsLoaded] = useState(false);
+
+    useEffect(() => {
+        fetch("/hosts")
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                setHosts(data.data);
+                setHostsLoaded(true);
+            });
+    }, []);
+
+    if (!hostsLoaded) {
+        return <span>Loading</span>;
+    }
 
     return (
         <Wrapper>
             <Container>
-                {users.map((user, index) => {
+                {hosts.map((host, index) => {
+                    if (host.role === "RIDER") {
+                        return null;
+                    }
                     return (
-                        <StyledLink to={`/host/id/${user._id}`} key={index}>
+                        <StyledLink to={`/host/id/${host._id}`} key={index}>
                             <Image
-                                src={`data:image/jpeg;base64,${user.imageSrc}`}
+                                src={`data:image/jpeg;base64,${host.imageSrc}`}
                                 width={100}
                                 alt="ride"
                             />
 
                             <Name>
-                                <div>{user.firstName}</div>
-                                <div>{user.lastName}</div>
+                                <div>{host.firstName}</div>
+                                <div>{host.lastName}</div>
                             </Name>
-                            <div>{user.category}</div>
-                            <div>{user.price} $ per day</div>
+                            <div>{host.category}</div>
+                            <div>{host.price} $ per day</div>
                         </StyledLink>
                     );
                 })}
             </Container>
+            <GoogleMapWithMarker hosts={hosts} />
         </Wrapper>
     );
 };
@@ -42,11 +60,6 @@ export default Home;
 
 const Wrapper = styled.div`
     padding: var(--padding-page);
-
-    div {
-        display: flex;
-        justify-content: center;
-    }
 `;
 
 const Container = styled.div`

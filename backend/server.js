@@ -3,20 +3,18 @@
 // import the needed node_modules.
 const express = require("express");
 const morgan = require("morgan");
-// const {
-//     getUsers,
-//     getUserById,
-//     getUserByEmail,
-//     updateUserByEmail,
-// } = require("./handlers");
+const session = require("express-session");
 
+const { getHosts, getHostById, getHostByEmail } = require("./handlers/host");
+const { getRidersByEmail } = require("./handlers/riders");
+const { isAuth } = require("./middlewares/auth");
 const {
-    getHost,
-    getHostById,
-    getHostByEmail,
-    addNewHost,
-} = require("./handlers/host");
-const { addNewRider, getRidersByEmail } = require("./handlers/riders");
+    getCurrentUser,
+    logout,
+    login,
+    registerHost,
+    registerRider,
+} = require("./handlers/auth");
 
 express()
     // chain express methods for convenience
@@ -24,26 +22,32 @@ express()
     .use(express.json())
     // Any requests for static files will go into the public folder
     .use(express.static("public"))
+    .use(
+        session({
+            secret: process.env.APP_SECRET,
+            resave: true,
+            saveUninitialized: true,
+        })
+    )
 
     //ENDPOINTS
     // ---------------------------------
-    // .get("/users", getUsers)
-    // .get("/user/ride/:_id", getUserById)
-    // .get("/user/:email", getUserByEmail)
-    // .put("/user/update/:email", updateUserByEmail)
-    // ---------------------------------
+    // CURRENT USER
+    .get("/me", isAuth, getCurrentUser)
 
-    //ENDPOINTS V2
-    // ---------------------------------
+    // AUTH
+    .post("/login", login)
+    .post("/logout", logout)
+    .post("/registerHost", registerHost)
+    .post("/registerRider", registerRider)
+
     // HOST
-    .get("/host", getHost)
-    .get("/host/id/:_id", getHostById)
-    .get("/host/email/:email", getHostByEmail)
-    .post("/addhost", addNewHost)
+    .get("/hosts", isAuth, getHosts)
+    .get("/host/id/:_id", isAuth, getHostById)
+    .get("/host/email/:email", isAuth, getHostByEmail)
 
     //RIDERS
-    .post("/addrider", addNewRider)
-    .get("/rider/:email", getRidersByEmail)
+    .get("/rider/:email", isAuth, getRidersByEmail)
     // ---------------------------------
 
     // this catch all endpoint.

@@ -8,8 +8,10 @@
         "dev:backend": "nodemon server.js"
     },
     "dependencies": {
+        "bcrypt": "^5.0.1",
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
+        "express-session": "^1.17.2",
         "mongodb": "^4.1.2",
         "mongouri": "^0.0.0",
         "morgan": "^1.10.0",
