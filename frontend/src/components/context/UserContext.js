@@ -7,7 +7,7 @@ export const UserProvider = ({ children }) => {
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        fetch("/users")
+        fetch("/host")
             .then((res) => res.json())
             .then((data) => {
                 setUsers(data.data);

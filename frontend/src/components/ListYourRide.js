@@ -1,7 +1,6 @@
 // IMPORT DEPENDENCIES
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useHistory } from "react-router-dom";
 
 // IMPORT COMPONENTS
@@ -15,17 +14,18 @@ const toBase64 = (file) =>
     });
 
 const ListYourRide = () => {
-    const { user } = useAuth0();
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
+        name: "",
+        surname: "",
+        email: "",
+        password: "",
         address: "",
         city: "",
         state: "",
         category: "",
         imageSrc: "",
-        description: "",
         price: "",
+        description: "",
     });
 
     let history = useHistory();
@@ -48,16 +48,17 @@ const ListYourRide = () => {
 
     const handleSubmit = (ev) => {
         ev.preventDefault();
-        fetch(`/user/update/${user.email}`, {
-            method: "PUT",
+        fetch("/addhost", {
+            method: "POST",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                host: true,
-                firstName: formData.firstName,
-                lastName: formData.lastName,
+                name: formData.name,
+                surname: formData.surname,
+                email: formData.email,
+                password: formData.password,
                 address: formData.address,
                 city: formData.city,
                 state: formData.state,
@@ -70,7 +71,11 @@ const ListYourRide = () => {
             .then((res) => res.json())
             .then((data) => {
                 const { status } = data;
-                if (status === 201) {
+                if (status === 200) {
+                    window.localStorage.setItem(
+                        "formData",
+                        JSON.stringify(data.data)
+                    );
                     history.push("/confirmed");
                 }
             });
@@ -83,17 +88,33 @@ const ListYourRide = () => {
                 <AllInputs>
                     <Input
                         type="text"
-                        name="firstName"
-                        placeholder="First Name"
-                        value={formData.firstName}
+                        name="email"
+                        placeholder="Email"
+                        value={formData.email}
+                        onChange={handleInput}
+                        required
+                    />
+                    <Input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={formData.password}
                         onChange={handleInput}
                         required
                     />
                     <Input
                         type="text"
-                        name="lastName"
+                        name="name"
+                        placeholder="First Name"
+                        value={formData.name}
+                        onChange={handleInput}
+                        required
+                    />
+                    <Input
+                        type="text"
+                        name="surname"
                         placeholder="Last Name"
-                        value={formData.lastName}
+                        value={formData.surname}
                         onChange={handleInput}
                         required
                     />

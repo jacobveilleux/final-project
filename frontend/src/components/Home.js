@@ -4,40 +4,36 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 // IMPORT COMPONENTS
-import UserContext from "../context/UserContext";
-import SearchBar from "./SearchBar";
-import Map from "./GoogleMap/Map";
+import UserContext from "./context/UserContext";
+import GoogleMapWithMarker from "./GoogleMap/GoogleMapWithMarker";
+
+// import SearchBar from "./SearchBar";
 
 const Home = () => {
     const { users } = useContext(UserContext);
 
     return (
         <Wrapper>
-            <SearchBar />
             <Container>
                 {users.map((user, index) => {
-                    if (user.host === true) {
-                        return (
-                            <StyledLink to={`/ride/${user._id}`} key={index}>
-                                <Image
-                                    src={`data:image/jpeg;base64,${user.imageSrc}`}
-                                    width={100}
-                                    alt="ride"
-                                />
+                    return (
+                        <StyledLink to={`/host/id/${user._id}`} key={index}>
+                            <Image
+                                src={`data:image/jpeg;base64,${user.imageSrc}`}
+                                width={100}
+                                alt="ride"
+                            />
 
-                                <Name>
-                                    <div>{user.firstName}</div>
-                                    <div>{user.lastName}</div>
-                                </Name>
-                                <div>{user.category}</div>
-                                <div>{user.price} $ per day</div>
-                            </StyledLink>
-                        );
-                    }
-                    return user;
+                            <Name>
+                                <div>{user.firstName}</div>
+                                <div>{user.lastName}</div>
+                            </Name>
+                            <div>{user.category}</div>
+                            <div>{user.price} $ per day</div>
+                        </StyledLink>
+                    );
                 })}
             </Container>
-            <Map />
         </Wrapper>
     );
 };
@@ -46,6 +42,11 @@ export default Home;
 
 const Wrapper = styled.div`
     padding: var(--padding-page);
+
+    div {
+        display: flex;
+        justify-content: center;
+    }
 `;
 
 const Container = styled.div`

@@ -3,12 +3,20 @@
 // import the needed node_modules.
 const express = require("express");
 const morgan = require("morgan");
+// const {
+//     getUsers,
+//     getUserById,
+//     getUserByEmail,
+//     updateUserByEmail,
+// } = require("./handlers");
+
 const {
-    getUsers,
-    getUserById,
-    getUserByEmail,
-    updateUserByEmail,
-} = require("./handlers");
+    getHost,
+    getHostById,
+    getHostByEmail,
+    addNewHost,
+} = require("./handlers/host");
+const { addNewRider, getRidersByEmail } = require("./handlers/riders");
 
 express()
     // chain express methods for convenience
@@ -19,10 +27,23 @@ express()
 
     //ENDPOINTS
     // ---------------------------------
-    .get("/users", getUsers)
-    .get("/user/ride/:_id", getUserById)
-    .get("/user/:email", getUserByEmail)
-    .put("/user/update/:email", updateUserByEmail)
+    // .get("/users", getUsers)
+    // .get("/user/ride/:_id", getUserById)
+    // .get("/user/:email", getUserByEmail)
+    // .put("/user/update/:email", updateUserByEmail)
+    // ---------------------------------
+
+    //ENDPOINTS V2
+    // ---------------------------------
+    // HOST
+    .get("/host", getHost)
+    .get("/host/id/:_id", getHostById)
+    .get("/host/email/:email", getHostByEmail)
+    .post("/addhost", addNewHost)
+
+    //RIDERS
+    .post("/addrider", addNewRider)
+    .get("/rider/:email", getRidersByEmail)
     // ---------------------------------
 
     // this catch all endpoint.

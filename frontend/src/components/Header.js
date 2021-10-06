@@ -4,12 +4,8 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 // IMPORT COMPONENTS
-import LoginButton from "./Login/LoginButton";
-import LogoutButton from "./Login/LogoutButton";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
-    const { isAuthenticated } = useAuth0();
     return (
         <>
             <Wrapper>
@@ -20,22 +16,14 @@ const Header = () => {
                         </StyledLogo>
                     </Logo>
                     <Nav2>
-                        {isAuthenticated ? (
-                            <StyledNavLink exact to="/list-your-ride">
-                                Become a host
-                            </StyledNavLink>
-                        ) : null}
-                        {isAuthenticated ? (
-                            <StyledNavLink exact to="/profile">
-                                Profile
-                            </StyledNavLink>
-                        ) : null}
+                        <StyledNavLink exact to="/list-your-ride">
+                            Become a host
+                        </StyledNavLink>
+                        <StyledNavLink exact to="/registration">
+                            Become a rider
+                        </StyledNavLink>
                         <StyledNavLink exact to="/login">
-                            {isAuthenticated ? (
-                                <LogoutButton />
-                            ) : (
-                                <LoginButton />
-                            )}
+                            Log In
                         </StyledNavLink>
                     </Nav2>
                 </Nav1>

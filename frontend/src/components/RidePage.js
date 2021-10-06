@@ -4,30 +4,31 @@ import { useParams } from "react-router-dom";
 
 const RidePage = () => {
     const { _id } = useParams();
-    const [data, setData] = useState([]);
+    const [user, setUser] = useState([]);
 
     useEffect(() => {
-        fetch(`/user/ride/${_id}`)
+        fetch(`/host/id/${_id}`)
             .then((res) => res.json())
             .then((data) => {
-                setData(data.data);
+                console.log(data.data[0]);
+                setUser(data.data[0]);
             });
     }, [_id]);
 
     return (
         <Wrapper>
             <Image
-                src={`data:image/jpeg;base64,${data.imageSrc}`}
+                src={`data:image/jpeg;base64,${user.imageSrc}`}
                 width={100}
                 alt="ride"
-            ></Image>
+            />
             <Name>
-                <div>{data.firstName}</div>
-                <div>{data.lastName}</div>
+                <div>{user.firstName}</div>
+                <div>{user.lastName}</div>
             </Name>
-            <div>{data.category}</div>
-            <div>{data.price} $ per day</div>
-            <Description>{data.description}</Description>
+            <div>{user.category}</div>
+            <div>{user.price} $ per day</div>
+            <Description>{user.description}</Description>
             <Button type="submit">Book</Button>
         </Wrapper>
     );
@@ -38,6 +39,7 @@ export default RidePage;
 const Wrapper = styled.div`
     padding: var(--padding-page);
     display: flex;
+    flex-direction: column;
     justify-content: center;
 `;
 
