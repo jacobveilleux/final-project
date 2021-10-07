@@ -38,7 +38,6 @@ const Login = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
                 if (data.data) {
                     setCurrentUser(data.data);
                     history.push("/");

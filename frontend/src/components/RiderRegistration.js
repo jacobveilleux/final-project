@@ -23,7 +23,6 @@ const RiderRegistration = () => {
     const handleInput = (ev) => {
         const name = ev.target.name;
         const value = ev.target.value;
-        console.log(name, value);
         setFormData({ ...formData, [name]: value });
     };
 
