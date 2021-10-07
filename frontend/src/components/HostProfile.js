@@ -71,6 +71,7 @@ const HostProfile = (props) => {
                         </FullName>
 
                         <City>{host.city}</City>
+                        <Email>{host.email}</Email>
                     </div>
                 </Container>
 
@@ -153,6 +154,11 @@ const City = styled.div`
     margin: 10px 0px 0px 50px;
     font-size: 18px;
     font-style: italic;
+`;
+
+const Email = styled.div`
+    margin: 10px 0px 0px 50px;
+    font-size: 18px;
 `;
 
 const CommentsWrapper = styled.div``;
