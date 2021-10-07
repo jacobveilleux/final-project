@@ -16,9 +16,8 @@ const Header = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
                 setCurrentUser(null);
-                history.push(`login`);
+                history.push("/");
             });
     }
 

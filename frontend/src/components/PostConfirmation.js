@@ -8,6 +8,8 @@ const PostConfirmation = () => {
 export default PostConfirmation;
 
 const Wrapper = styled.div`
-    padding: var(--padding-page);
-    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
 `;

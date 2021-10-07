@@ -1,12 +1,14 @@
 // IMPORT DEPENDENCIES
 import React, { useContext } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Redirect, BrowserRouter, Switch, Route } from "react-router-dom";
+import { FiLoader } from "react-icons/fi";
 
 // IMPORT COMPONENTS
 import GlobalStyles from "./GlobalStyles";
 import Header from "./Header";
 // import Footer from "./Footer";
+import HelloHome from "./HelloHome";
 import Home from "./Home";
 import RidePage from "./RidePage";
 import RiderRegistration from "./RiderRegistration";
@@ -22,14 +24,14 @@ const App = () => {
     const { currentUserLoaded, currentUser } = useContext(AuthContext);
 
     if (!currentUserLoaded) {
-        return <span>Loading</span>;
+        return <Loading />;
     }
 
     return (
         <BrowserRouter>
             <GlobalStyles />
+            <Header />
             <Wrapper>
-                <Header />
                 <Switch>
                     <Route exact path="/login">
                         <Login />
@@ -48,11 +50,7 @@ const App = () => {
                     </Route>
                     {/* AUTHENTICATED ROUTES */}
                     <Route exact path="/">
-                        {!currentUser ? (
-                            <Redirect to="riderRegistration" />
-                        ) : (
-                            <Home />
-                        )}
+                        {!currentUser ? <HelloHome /> : <Home />}
                     </Route>
                     <Route path="/host/id/:_id">
                         {!currentUser ? (
@@ -76,12 +74,29 @@ const App = () => {
                         )}
                     </Route>
                 </Switch>
-                {/* <Footer /> */}
             </Wrapper>
+            {/* <Footer /> */}
         </BrowserRouter>
     );
 };
 
 export default App;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+    min-height: 100vh;
+`;
+
+const spin = keyframes`
+  from {transform:rotate(0deg)};
+    to {transform:rotate(360deg)};
+`;
+
+const Loading = styled(FiLoader)`
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    animation: ${spin} 1500ms linear infinite;
+    color: var(--primary-color);
+`;

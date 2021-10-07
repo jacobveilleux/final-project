@@ -1,56 +1,43 @@
 // IMPORT DEPENDENCIES
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { NavLink } from "react-router-dom";
+import { FiLoader } from "react-icons/fi";
 
 // IMPORT COMPONENTS
 import GoogleMapWithMarker from "./GoogleMap/GoogleMapWithMarker";
-
-// import SearchBar from "./SearchBar";
+import SearchBar from "./SearchBar";
+import Menu from "./Menu";
+import ButtonCategory from "./ButtonCategory";
 
 const Home = () => {
     const [hosts, setHosts] = useState([]);
     const [hostsLoaded, setHostsLoaded] = useState(false);
+    const [menuItem, setMenuItem] = useState(hosts);
 
     useEffect(() => {
         fetch("/hosts")
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
                 setHosts(data.data);
                 setHostsLoaded(true);
             });
     }, []);
 
+    const filter = (button) => {
+        const filteredData = hosts.filter((host) => host.category === button);
+        setMenuItem(filteredData);
+    };
+
     if (!hostsLoaded) {
-        return <span>Loading</span>;
+        return <Loading />;
     }
 
     return (
         <Wrapper>
-            <Container>
-                {hosts.map((host, index) => {
-                    if (host.role === "RIDER") {
-                        return null;
-                    }
-                    return (
-                        <StyledLink to={`/host/id/${host._id}`} key={index}>
-                            <Image
-                                src={`data:image/jpeg;base64,${host.imageSrc}`}
-                                width={100}
-                                alt="ride"
-                            />
-
-                            <Name>
-                                <div>{host.firstName}</div>
-                                <div>{host.lastName}</div>
-                            </Name>
-                            <div>{host.category}</div>
-                            <div>{host.price} $ per day</div>
-                        </StyledLink>
-                    );
-                })}
-            </Container>
+            <SearchBar users={hosts} />
+            <ButtonCategory filter={filter} />
+            <Menu menuItem={menuItem} />
             <GoogleMapWithMarker hosts={hosts} />
         </Wrapper>
     );
@@ -62,30 +49,17 @@ const Wrapper = styled.div`
     padding: var(--padding-page);
 `;
 
-const Container = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    order: 1;
-    margin-top: 20px;
-    margin-bottom: 20px;
+const spin = keyframes`
+  from {transform:rotate(0deg)};
+    to {transform:rotate(360deg)};
 `;
 
-const StyledLink = styled(NavLink)`
-    text-decoration: none;
-    margin: 40px;
-`;
-
-const Image = styled.img`
-    height: 250px;
-    width: 250px;
-`;
-
-const Name = styled.div`
-    display: flex;
-    font-weight: bold;
-
-    div  {
-        margin-right: 5px;
-    }
+const Loading = styled(FiLoader)`
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    animation: ${spin} 1500ms linear infinite;
+    color: var(--primary-color);
 `;

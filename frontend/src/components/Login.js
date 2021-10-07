@@ -5,16 +5,17 @@ import styled from "styled-components";
 
 // IMPORT COMPONENTS
 import AuthContext from "./context/AuthContext";
+import loginImage from "./assets/loginImage.jpg";
 
 const Login = () => {
     let history = useHistory();
     const { setCurrentUser } = useContext(AuthContext);
+    const [error, setError] = useState("");
 
     const [formData, setFormData] = useState({
         email: "",
         password: "",
     });
-    const [error, setError] = React.useState("");
 
     const handleInput = (ev) => {
         const name = ev.target.name;
@@ -49,7 +50,6 @@ const Login = () => {
 
     return (
         <Wrapper>
-            <div>Login</div>
             <Form onSubmit={handleSubmit}>
                 <AllInputs>
                     <Input
@@ -79,11 +79,24 @@ const Login = () => {
 export default Login;
 
 const Wrapper = styled.div`
-    padding: var(--padding-page);
-    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(${loginImage});
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
 `;
 
-const Form = styled.form``;
+const Form = styled.form`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(260, 260, 260, 0.5);
+    height: 200px;
+    width: 300px;
+`;
 
 const AllInputs = styled.div`
     display: flex;
@@ -92,6 +105,17 @@ const AllInputs = styled.div`
 
 const Input = styled.input`
     padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
 `;
 
-const Button = styled.button``;
+const Button = styled.button`
+    margin-top: 10px;
+    border: none;
+    background-color: var(--color-1);
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+`;

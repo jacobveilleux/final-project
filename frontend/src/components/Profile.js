@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 // IMPORT COMPONENTS
 import AuthContext from "./context/AuthContext";
+import profileAvatar from "./assets/profileAvatar.jpeg";
 
 const Profile = () => {
     const { currentUser } = useContext(AuthContext);
@@ -12,16 +13,17 @@ const Profile = () => {
         <Wrapper>
             <div>
                 <Container>
-                    <div></div>
                     <div>
-                        <Name>{currentUser.name || "NO NAME"}</Name>
-                        <City>Montreal</City>
+                        <Image src={profileAvatar}></Image>
                     </div>
+                    <div>
+                        <FullName>
+                            <Name>{currentUser.name}</Name>
+                            <Surname>{currentUser.surname}</Surname>
+                        </FullName>
 
-                    <code>
-                        <div>CURRENT USER</div>
-                        <pre>{JSON.stringify(currentUser, null, 2)}</pre>
-                    </code>
+                        <City>{currentUser.city}</City>
+                    </div>
                 </Container>
             </div>
         </Wrapper>
@@ -38,15 +40,25 @@ const Container = styled.div`
     display: flex;
 `;
 
-// const Image = styled.img`
-//     width: 160px;
-//     height: 160px;
-//     border-radius: 80px;
-// `;
+const Image = styled.img`
+    width: 200px;
+    height: 200px;
+    border-radius: 80px;
+`;
+
+const FullName = styled.div`
+    display: flex;
+    margin-top: 20px;
+`;
 
 const Name = styled.div`
     margin: 10px 0px 0px 50px;
     font-size: 22px;
+`;
+const Surname = styled.div`
+    margin: 10px 0px 0px 50px;
+    font-size: 22px;
+    margin-left: 5px;
 `;
 
 const City = styled.div`

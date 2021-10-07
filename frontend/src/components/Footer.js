@@ -74,7 +74,6 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
     padding: var(--padding-page);
-
     position: absolute;
     left: 0;
     bottom: 0;

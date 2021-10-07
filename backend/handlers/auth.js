@@ -116,16 +116,24 @@ const registerHost = async (req, res) => {
             role: "HOST",
         };
 
-        // POST inside collection "users"
-        await db.collection("users").insertOne(data);
+        const existingUser = await db
+            .collection("users")
+            .findOne({ email: `${req.body.email}` });
 
-        req.session.userId = userId;
-
-        res.status(200).json({
-            status: 200,
-            data: data,
-            message: "host added successfully",
-        });
+        if (existingUser === null) {
+            await db.collection("users").insertOne(data);
+            req.session.userId = userId;
+            res.status(200).json({
+                status: 200,
+                data: data,
+                message: "host added successfully",
+            });
+        } else {
+            res.status(400).json({
+                status: 400,
+                message: "email already taken",
+            });
+        }
     } catch (err) {
         console.log(err);
         res.status(500).json({ status: 500, message: "something went wrong" });
@@ -160,15 +168,23 @@ const registerRider = async (req, res) => {
             role: "RIDER",
         };
 
-        // POST inside collection "users"
-        await db.collection("users").insertOne(data);
+        const existingUser = await db
+            .collection("users")
+            .findOne({ email: `${req.body.email}` });
 
-        req.session.userId = userId;
-
-        res.status(200).json({
-            status: 200,
-            message: "rider added successfully",
-        });
+        if (existingUser === null) {
+            await db.collection("users").insertOne(data);
+            req.session.userId = userId;
+            res.status(200).json({
+                status: 200,
+                message: "rider added successfully",
+            });
+        } else {
+            res.status(400).json({
+                status: 400,
+                message: "email already taken",
+            });
+        }
     } catch (err) {
         console.log(err);
         res.status(500).json({ status: 500, message: "something went wrong" });

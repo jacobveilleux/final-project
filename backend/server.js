@@ -48,6 +48,7 @@ express()
 
     //RIDERS
     .get("/rider/:email", isAuth, getRidersByEmail)
+
     // ---------------------------------
 
     // this catch all endpoint.

@@ -7,7 +7,6 @@ import {
 } from "react-google-maps";
 
 const MapWithAMarker = ({ hosts }) => {
-    console.log("hosts1", hosts);
     if (!hosts) {
         return null;
     }
