@@ -22,7 +22,7 @@ const Menu = ({ menuItem }) => {
                             <Surname>{host.surname}</Surname>
                         </FullName>
                         <Category>{host.category}</Category>
-                        <StyledButton to={`/host/id/${host._id}`} key={index}>
+                        <StyledButton to={`/host/${host._id}`} key={index}>
                             <Button type="button">More information</Button>
                         </StyledButton>
                     </StyledLink>

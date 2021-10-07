@@ -1,19 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-const SearchBar = ({ users }) => {
-    const [searchTerm, setSearchTerm] = useState("");
+const SearchBar = ({ searchValue, setSearchValue }) => {
     return (
         <Wrapper>
             <input
                 type="text"
                 placeholder="Search"
+                value={searchValue}
                 onChange={(ev) => {
-                    console.log(ev.target.value);
-                    setSearchTerm(ev.target.value);
+                    setSearchValue(ev.target.value);
                 }}
             ></input>
-            {users
+            {/* {users
                 .filter((val) => {
                     if (searchTerm === "") {
                         return val;
@@ -32,7 +31,7 @@ const SearchBar = ({ users }) => {
                             {user.surname}
                         </div>
                     );
-                })}
+                })} */}
         </Wrapper>
     );
 };

@@ -1,10 +1,9 @@
 // IMPORT DEPENDENCIES
 import React, { useContext } from "react";
 import styled from "styled-components";
-
+import profileAvatar from "./assets/profileAvatar.jpeg";
 // IMPORT COMPONENTS
 import AuthContext from "./context/AuthContext";
-import profileAvatar from "./assets/profileAvatar.jpeg";
 
 const Profile = () => {
     const { currentUser } = useContext(AuthContext);

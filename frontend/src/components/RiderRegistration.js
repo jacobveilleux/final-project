@@ -128,8 +128,8 @@ const Wrapper = styled.div`
     align-items: center;
     background-image: url(${riderImage});
     background-size: cover;
-    height: 100vh;
-    width: 100vw;
+    flex: 1;
+    padding: var(--content-padding);
     overflow: hidden;
 `;
 

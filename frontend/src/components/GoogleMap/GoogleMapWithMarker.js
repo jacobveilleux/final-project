@@ -6,7 +6,7 @@ import {
     withScriptjs,
 } from "react-google-maps";
 
-const MapWithAMarker = ({ hosts }) => {
+const MapWithAMarker = ({ hosts, onMarkerClick }) => {
     if (!hosts) {
         return null;
     }
@@ -19,6 +19,7 @@ const MapWithAMarker = ({ hosts }) => {
             {hosts.map((host, index) => {
                 return (
                     <Marker
+                        onClick={() => onMarkerClick(host)}
                         key={index}
                         position={{ lat: +host.lat, lng: +host.lng }}
                     />
@@ -30,7 +31,7 @@ const MapWithAMarker = ({ hosts }) => {
 
 const WrappedMap = withScriptjs(withGoogleMap(MapWithAMarker));
 
-const Map = ({ hosts }) => {
+const Map = ({ hosts, onMarkerClick }) => {
     return (
         <WrappedMap
             googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_GEO_API_KEY}`}
@@ -38,6 +39,7 @@ const Map = ({ hosts }) => {
             containerElement={<div style={{ height: `400px` }} />}
             mapElement={<div style={{ height: `100%`, width: "100%" }} />}
             hosts={hosts}
+            onMarkerClick={onMarkerClick}
         />
     );
 };

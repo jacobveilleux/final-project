@@ -7,6 +7,9 @@ export default createGlobalStyle`
     --color-2: #DAE6Df; // Mint Cream
     --font-body: "Open Sans", sans-serif;
     --padding-page: 4vh 8vw;
+	--content-padding: 60px 20px;
+	--content-padding-vertical: 60px;
+	--content-padding-horizontal: 20px;
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/ 

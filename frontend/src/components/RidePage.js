@@ -1,22 +1,25 @@
+//IMPORT DEPENDENCIES
 import React, { useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { FiLoader } from "react-icons/fi";
+
+//IMPORT LOADING
+import { Loading } from "./Loading";
 
 const RidePage = () => {
-    const { _id } = useParams();
+    const { id } = useParams();
     const [host, setHost] = useState([]);
     const [hostsLoaded, setHostsLoaded] = useState(false);
 
     useEffect(() => {
-        fetch(`/host/id/${_id}`)
+        fetch(`/host/id/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 setHost(data.data[0]);
                 setHostsLoaded(true);
             });
-    }, [_id]);
+    }, [id]);
 
     if (!hostsLoaded) {
         return <Loading />;
@@ -38,7 +41,7 @@ const RidePage = () => {
                     </FullName>
                     <Category>{host.category}</Category>
                     <Description>{host.description}</Description>
-                    <StyledButton to="/profile/:id">
+                    <StyledButton to={`/profile/${host._id}`}>
                         <Button type="button">Contact Host</Button>
                     </StyledButton>
                 </Info>
@@ -114,19 +117,4 @@ const Button = styled.button`
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-`;
-
-const spin = keyframes`
-  from {transform:rotate(0deg)};
-    to {transform:rotate(360deg)};
-`;
-
-const Loading = styled(FiLoader)`
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 30px;
-    height: 30px;
-    animation: ${spin} 1500ms linear infinite;
-    color: var(--primary-color);
 `;

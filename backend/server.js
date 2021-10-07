@@ -16,6 +16,11 @@ const {
     registerRider,
 } = require("./handlers/auth");
 
+const {
+    createCommentForHost,
+    getCommentsForHost,
+} = require("./handlers/comment");
+
 express()
     // chain express methods for convenience
     .use(morgan("tiny"))
@@ -48,6 +53,9 @@ express()
 
     //RIDERS
     .get("/rider/:email", isAuth, getRidersByEmail)
+
+    .get("/host/:hostId/comments", isAuth, getCommentsForHost)
+    .post("/host/:hostId/comments", isAuth, createCommentForHost)
 
     // ---------------------------------
 

@@ -1,19 +1,24 @@
 // IMPORT DEPENDENCIES
-import React, { useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
-import { NavLink } from "react-router-dom";
-import { FiLoader } from "react-icons/fi";
+import React, { useEffect, useMemo, useState } from "react";
+import { useHistory } from "react-router";
+import styled from "styled-components";
 
 // IMPORT COMPONENTS
 import GoogleMapWithMarker from "./GoogleMap/GoogleMapWithMarker";
-import SearchBar from "./SearchBar";
 import Menu from "./Menu";
 import ButtonCategory from "./ButtonCategory";
+import SearchBar from "./SearchBar";
+
+//IMPORT LOADING
+import { Loading } from "./Loading";
 
 const Home = () => {
     const [hosts, setHosts] = useState([]);
     const [hostsLoaded, setHostsLoaded] = useState(false);
-    const [menuItem, setMenuItem] = useState(hosts);
+    const [selectedFilter, setSelectedFilter] = useState(null);
+    const [searchValue, setSearchValue] = useState("");
+
+    const history = useHistory();
 
     useEffect(() => {
         fetch("/hosts")
@@ -24,9 +29,37 @@ const Home = () => {
             });
     }, []);
 
-    const filter = (button) => {
-        const filteredData = hosts.filter((host) => host.category === button);
-        setMenuItem(filteredData);
+    const menuItems = useMemo(() => {
+        // No filter selected so return everything
+        if (!selectedFilter && !searchValue) {
+            return hosts;
+        }
+
+        let filteredHosts = hosts;
+
+        // If a filter has been selected
+        if (selectedFilter) {
+            filteredHosts = hosts.filter(
+                (host) => host.category === selectedFilter
+            );
+        }
+
+        // If a search value has been entered
+        if (searchValue) {
+            filteredHosts = filteredHosts.filter((host) =>
+                host.name.toLowerCase().includes(searchValue.toLowerCase())
+            );
+        }
+
+        return filteredHosts;
+    }, [hosts, selectedFilter, searchValue]);
+
+    const handleFilterChange = (filter) => {
+        setSelectedFilter(filter);
+    };
+
+    const handleOnMarkerClick = (host) => {
+        history.push(`/host/${host._id}`);
     };
 
     if (!hostsLoaded) {
@@ -35,10 +68,21 @@ const Home = () => {
 
     return (
         <Wrapper>
-            <SearchBar users={hosts} />
-            <ButtonCategory filter={filter} />
-            <Menu menuItem={menuItem} />
-            <GoogleMapWithMarker hosts={hosts} />
+            <FilterWrapper>
+                <ButtonCategory
+                    selectedFilter={selectedFilter}
+                    setFilter={handleFilterChange}
+                />
+                <SearchBar
+                    setSearchValue={(value) => setSearchValue(value)}
+                    searchValue={searchValue}
+                />
+            </FilterWrapper>
+            <Menu menuItem={menuItems} />
+            <GoogleMapWithMarker
+                hosts={hosts}
+                onMarkerClick={handleOnMarkerClick}
+            />
         </Wrapper>
     );
 };
@@ -49,17 +93,8 @@ const Wrapper = styled.div`
     padding: var(--padding-page);
 `;
 
-const spin = keyframes`
-  from {transform:rotate(0deg)};
-    to {transform:rotate(360deg)};
-`;
-
-const Loading = styled(FiLoader)`
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 30px;
-    height: 30px;
-    animation: ${spin} 1500ms linear infinite;
-    color: var(--primary-color);
+const FilterWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 `;

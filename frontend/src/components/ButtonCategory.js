@@ -1,17 +1,45 @@
 import React from "react";
+import styled, { css } from "styled-components";
 
-const ButtonCategory = ({ filter }) => {
+const Button = styled.button`
+    ${(props) =>
+        props.selected &&
+        css`
+            background-color: white;
+        `}
+`;
+
+const ButtonCategory = ({ setFilter, selectedFilter }) => {
     return (
         <div>
-            <button type="button" onClick={() => filter("Moto")}>
+            <Button
+                selected={selectedFilter === "Moto"}
+                type="button"
+                onClick={() => setFilter("Moto")}
+            >
                 Moto
-            </button>
-            <button type="button" onClick={() => filter("ATV")}>
+            </Button>
+            <Button
+                selected={selectedFilter === "ATV"}
+                type="button"
+                onClick={() => setFilter("ATV")}
+            >
                 ATV
-            </button>
-            <button type="button" onClick={() => filter("Snowmobile")}>
-                Snomobile
-            </button>
+            </Button>
+            <Button
+                selected={selectedFilter === "Snowmobile"}
+                type="button"
+                onClick={() => setFilter("Snowmobile")}
+            >
+                Snowmobile
+            </Button>
+            <Button
+                selected={!selectedFilter}
+                type="button"
+                onClick={() => setFilter("")}
+            >
+                All
+            </Button>
         </div>
     );
 };
